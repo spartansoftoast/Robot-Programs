@@ -177,16 +177,16 @@ def followLeft(forHowLong):
     currentTime = time.time()
     totalTime = currentTime - startTime
     expectedBlack = 6
-    expectedWhite = 50
-    powerMultiplier = 0.40
+    expectedWhite = 74
+    powerMultiplier = 0.10
     maxMotorPower = 1100
     while (totalTime < forHowLong):
         print("While")
         color = colorL.reflection()
-        left = (expectedWhite - color) * powerMultiplier + 10
-        right = (color - expectedBlack) * powerMultiplier + 10
-        left_motor.run(maxMotorPower * (left/100))
-        right_motor.run(maxMotorPower * (right/100))
+        left = (expectedWhite - color) * powerMultiplier + 25
+        right = (color - expectedBlack) * powerMultiplier + 25
+        right_motor.run(maxMotorPower * (left/100))
+        left_motor.run(maxMotorPower * (right/100))
         currentTime = time.time()
         totalTime = currentTime - startTime
         print(totalTime)

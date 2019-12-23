@@ -32,7 +32,7 @@ toast.wait(500)
 
 # This moves the robot forward so that the robot can face the bridge.
 
-toast.followRight(7)
+toast.followLeft(7)
 toast.wait(500)
 
 # This turns the robot to face the bridge.
