@@ -7,7 +7,7 @@ from pybricks.parameters import (Port, Stop, Direction, Button, Color,
                                  SoundFile, ImageFile, Align)
 from pybricks.tools import print, wait, StopWatch
 from pybricks.robotics import DriveBase
-
+# 1+1=2
 # Write your program here
 left_motor = Motor(Port.C, Direction.CLOCKWISE)
 right_motor = Motor(Port.D, Direction.CLOCKWISE)
