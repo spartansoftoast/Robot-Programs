@@ -5,4 +5,4 @@ while not any(toast.brick.buttons()):
     toast.gyroDrift()
     pass
 toast.brick.sound.beep()
-toast.wait(750)
+toast.wait(750);
