@@ -19,6 +19,7 @@ med_motor = Motor(Port.A, Direction.COUNTERCLOCKWISE)
 gyro = GyroSensor(Port.S4)
 gyro_V = GyroSensor(Port.S1)
 colorL = ColorSensor(Port.S2)
+touch = TouchSensor(Port.S3)
 
 # This creates a Drivebase so that if we call "robot" it will move both motors.
 robot=DriveBase(left_motor, right_motor, 56, 104)
@@ -53,6 +54,8 @@ def moveInches(myInches, mySpeed, mySteering):
 # myType tells the robot to do either a spin turn or a pivot turn.
 def moveAngle(myAngle, mySpeed, myType):
     gyro.reset_angle(0)
+    # Adding a wait to see if it fixes the motor issue
+    wait(100)
     if myType == 1:
         if myAngle > 0:
             robot.drive(0, mySpeed)
@@ -204,3 +207,20 @@ def Bridge():
     while gyro_V.angle() > 0:
         robot.drive(200, 0)
 
+def SEQ_Touch():
+    brick.sound.beep()
+    wait(750)
+    brick.display.clear()
+    brick.display.text("Button Up: Medium Motor Up", (10, 55))
+    brick.display.text("Button Down: Medium Motor Down", (10, 65))
+    while True:
+        if Button.UP in brick.buttons():
+            med_motor.dc(75)
+        elif Button.DOWN in brick.buttons():
+            med_motor.dc(-75)
+        else:
+            med_motor.stop(Stop.BRAKE)
+            if touch.pressed() == True:
+                brick.sound.beep()
+                wait(750)
+                break
