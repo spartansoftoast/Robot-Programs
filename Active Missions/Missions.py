@@ -9,7 +9,7 @@ def TJ_Swing():
     # This moves the robot to the Traffic Jam, so that the attachment is under the Traffic Jam.
 
     toast.moveInches(23.6, 250, 0)
-    toast.robot.stop(toast.Stop.BRAKE)
+
     toast.wait(250)
 
     # This lifts the Traffic Jam.
@@ -76,43 +76,37 @@ def TJ_Swing():
 def DB_Crane():
     toast.gyro.reset_angle(0)
     toast.brick.sound.beep()
-    toast.wait(750)
+    toast.wait(500)
 
     # This makes the robot deliver the units to the black circle near the crane.
-    toast.moveInches(17, 75, 0)
-    toast.wait(500)
+    toast.moveInches(17, 125, 0)
 
     # This makes the robot back away from black circle mentioned above.
     toast.moveInches(-5, 300, 0)
-    toast.wait(505)
 
     # Turn robot to the right.
-    toast.moveAngle(75, 150, 1)
-    toast.wait(250)
+    toast.moveAngle(75, 120, 0)
 
     # This lowers the leverator so it can slide under the left blue lever on the crane.
-    toast.med_attachment_parallel(-110, 1)
-    toast.wait(100)
+    toast.med_attachment_parallel(-90, 1)
 
     # This makes the robot move toward the crane.
     toast.moveInches(15 , 300, 0)
-    toast.wait(250)
-    toast.moveAngle(-118, 125, 1)
-    toast.wait(250)
+
+    toast.moveAngle(-43, 120, 0)
+
 
     # This reliably gets to the position needed to lift the crane lever.
     toast.moveWhite()
-    toast.wait(250)
-    toast.moveBlack()
-    toast.wait(250)
+
 
     # This lifts the crane lever.
     toast.med_attachment(50,1)
-    toast.wait(250)
+
 
     # This moves the robot into the base.
-    toast.moveAngle(-90, 125, 1)
-    toast.wait(250)
+    toast.moveAngle(-93, 120, 0)
+
 
     # This gets the leverator ready for the next mission: Elevator.
     toast.med_attachment_parallel(-50,1)  
@@ -135,7 +129,7 @@ def Innovative_A():
 
     toast.wait(250)
 
-    # This moves the robot forward away from the Innovative Architecture.
+    # This moves the robot backward away from the Innovative Architecture.
 
     toast.moveInches(-8, 200, 0)
 
@@ -166,7 +160,7 @@ def Tan_Elevator():
 
     # This moves the robot forward to the circle next to the Elevator.
 
-    toast.moveInches(40, 200, 0)
+    toast.moveInches(40, 400, 0)
 
     toast.wait(250)
 
@@ -174,7 +168,7 @@ def Tan_Elevator():
 
     toast.wait(250)
 
-    toast.moveAngle(-15, 40, 1)
+    toast.moveAngle(-5, 40, 1)
 
     toast.wait(250)
 
@@ -195,6 +189,8 @@ def Tan_Elevator():
     # This moves the robot to the Elevator.
 
     toast.moveWhite()
+
+    toast.moveAngle(-10, 40, 1)
 
     toast.wait(250)
 
@@ -219,13 +215,13 @@ def Red_Circle_Bridge():
 
     # This moves the robot foward to prepare it to get the red block into the red circle.
     toast.moveInches(10, 200, 0)
-    toast.robot.stop(toast.Stop.BRAKE)
+
     toast.wait(500)
 
     # This turns the robot to the left to face the red circle.
 
     toast.moveAngle(-17, 75, 0)
-    toast.robot.stop(toast.Stop.BRAKE)
+
 
     # This pushes the blocks into the red circle.
 
@@ -234,7 +230,7 @@ def Red_Circle_Bridge():
     # This moves the robot backward to prepare the robot for the bridge.
 
     toast.moveInches(-9, 350, 0)
-    toast.robot.stop(toast.Stop.BRAKE)
+
     toast.wait(500)
 
     # This moves the robot forward so that the robot can face the bridge.
@@ -257,4 +253,3 @@ def Red_Circle_Bridge():
     # This moves the robot the rest of the way up the bridge.
 
     toast.moveInches(19, 250, 0)
-    toast.robot.stop(toast.Stop.BRAKE)
