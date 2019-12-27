@@ -18,7 +18,7 @@ toast.wait(250)
 
 # This lifts the Traffic Jam.
 
-toast.med_attachment(70, 1)
+toast.med_attachment(40, 1)
 
 # This bumps the Traffic Jam to make it stay up.
 

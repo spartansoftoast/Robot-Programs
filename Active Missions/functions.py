@@ -20,11 +20,12 @@ gyro = GyroSensor(Port.S4)
 gyro_V = GyroSensor(Port.S1)
 colorL = ColorSensor(Port.S2)
 touch = TouchSensor(Port.S3)
+gyro.reset_angle(0)
+gyro_V.reset_angle(0)
 
 # This creates a Drivebase so that if we call "robot" it will move both motors.
 # robot=DriveBase(left_motor, right_motor, 56, 104)
-gyro.reset_angle(0)
-gyro_V.reset_angle(0)
+
 # This function tells the robot to move forward and backward.
 # myInches tells the robot how many inches to move.
 # mySpeed tells the robot how fast to move.
@@ -48,22 +49,22 @@ def moveInches(myInches, mySpeed, mySteering = 0):
 # myAngle tells the robot how many degrees to turn.
 # mySpeed tells the robot how fast to turn.
 # myType tells the robot to do either 1=spin turn or 0=pivot turn.
-def moveAngle(myAngle, mySpeedPercent, myType = 1):
-    print("moveAngle(" + str(myAngle) + ", " + str(mySpeedPercent) + ", " + str(myType) +")")
+def moveAngle(myAngle, mySpeed, myType = 0):
+    print("moveAngle(" + str(myAngle) + ", " + str(mySpeed) + ", " + str(myType) +")")
     # Adding a wait to see if it fixes the motor issue after a reset
     wait(100)
     if myType == 1:
         if myAngle > gyro.angle(): # turn Right
-            left_motor.dc(mySpeedPercent)     
-            right_motor.dc(-1*mySpeedPercent)
+            left_motor.dc(mySpeed)     
+            right_motor.dc(-1*mySpeed)
             while gyro.angle() < myAngle: # and gyro.speed() > 5:
                 pass
             print("End Turn" + str(gyro.angle()))
             stopDriveMotors()
 
         elif myAngle < gyro.angle(): # turn Left
-            left_motor.dc(-1*mySpeedPercent)            
-            right_motor.dc(mySpeedPercent)
+            left_motor.dc(-1*mySpeed)            
+            right_motor.dc(mySpeed)
             while gyro.angle() > myAngle: # and gyro.speed() < -5:
                 pass
             print("End Turn" + str(gyro.angle()))
@@ -74,7 +75,7 @@ def moveAngle(myAngle, mySpeedPercent, myType = 1):
             pass
     elif myType == 0:
         if myAngle > gyro.angle():  # Turn Right
-            left_motor.run(mySpeedPercent)
+            left_motor.run(mySpeed)
             while gyro.angle() < myAngle:
                 pass
             print("End Turn" + str(gyro.angle()))
@@ -83,7 +84,7 @@ def moveAngle(myAngle, mySpeedPercent, myType = 1):
             # Print debug (myAngle vs actualAngle)
 
         elif myAngle < gyro.angle():  # Turn Left
-            right_motor.run(mySpeedPercent)
+            right_motor.run(mySpeed)
             while gyro.angle() > myAngle:
                 pass
             print("End Turn" + str(gyro.angle()))
@@ -135,7 +136,7 @@ def med_attachment(myAngle, gearbox = 1):
     med_motor.stop(Stop.BRAKE)  # Just in case the medium motor does not stop (micropython issue)
 
 # This runs med_attachment in a thread so that commands can run while the leverator changes position
-def med_attachment_parallel(myAngle, gearbox):
+def med_attachment_parallel(myAngle, gearbox = 1):
     print("med_attachment_parallel")
     medThread = threading.Thread(target=med_attachment, args=(myAngle,gearbox))
     medThread.start()
@@ -155,8 +156,8 @@ def gyroDrift():
 # This moves the robot FORWARD till the color sensor finds a white line.
 def moveWhite():
     print("moveWhite")
-    left_motor.run(150)       
-    right_motor.run(150)
+    left_motor.run(135)       
+    right_motor.run(135)
     while colorL.reflection() < 75:
        pass
     stopDriveMotors()
@@ -164,8 +165,8 @@ def moveWhite():
 # This moves the robot FORWARD till the color sensor finds a black line.
 def moveBlack():
     print("moveBlack")
-    left_motor.run(150)            
-    right_motor.run(150)
+    left_motor.run(100)            
+    right_motor.run(100)
     while colorL.reflection() > 6:
        pass
     stopDriveMotors()
@@ -173,9 +174,9 @@ def moveBlack():
 # This moves the robot BACKWARD till the color sensor finds a white line.
 def moveWhiteB():
     print("moveWhiteB")
-    left_motor.run(-150)            
-    right_motor.run(-150)
-    while colorL.reflection() < 32:
+    left_motor.run(-135)            
+    right_motor.run(-135)
+    while colorL.reflection() < 75:
        pass
     stopDriveMotors()
 
@@ -248,3 +249,5 @@ def stopDriveMotors():
     print("Brake")
     left_motor.dc(0)
     right_motor.dc(0)
+    left_motor.stop(Stop.BRAKE)
+    right_motor.stop(Stop.BRAKE)
