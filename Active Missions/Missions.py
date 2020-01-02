@@ -162,51 +162,67 @@ def Tan_Elevator():
 
     toast.moveInches(40, 400, 0)
 
-    toast.wait(250)
-
     toast.moveWhite()
 
-    toast.wait(250)
+    toast.moveAngle(-35, 80)
 
-    toast.moveAngle(-5, 40, 1)
+    toast.moveInches(6, 300, 0)
 
-    toast.wait(250)
-
-    toast.moveInches(6, 200, 0)
-
-    toast.wait(250)
-
-    toast.moveInches(-3, 200, 0)
-
-    toast.wait(250)
+    toast.moveWhiteB()
 
     # This moves the robot to face the Elevator.
 
-    toast.moveAngle(45, 50, 1)
-
-    toast.wait(250)
+    toast.moveAngle(20, 200)
 
     # This moves the robot to the Elevator.
 
     toast.moveWhite()
 
-    toast.moveAngle(-10, 40, 1)
+    toast.moveInches(2, 300)
 
-    toast.wait(250)
+    toast.moveAngle(-5, 100)
 
     toast.followLeft(2.65)
 
-    toast.wait(250)
+    #toast.moveAngle(-30, 80)
 
-    toast.med_attachment_parallel(45, 1)
+    #toast.moveInches(2, 400)
 
-    toast.moveInches(5, 200, 0)
+    #toast.med_attachment_parallel(45, 1)
 
-    toast.wait(250)
+    toast.moveInches(4, 200, 0)
 
-    toast.moveInches(-10, 200, 0)
+    toast.moveWhiteB()
 
-    toast.wait(250)
+    toast.med_attachment_parallel(90)
+
+    toast.moveInches(-1, 300)
+
+    toast.moveAngle(85, 200)
+
+    toast.moveInches(3, 100)
+
+    toast.moveInches(-2, 200)
+
+    toast.left_motor.reset_angle(0)
+
+    toast.left_motor.run_target(200, -390, toast.Stop.BRAKE, True)
+
+    toast.med_attachment(-80)
+
+    toast.moveInches(2, 200)
+
+    toast.left_motor.reset_angle(0)
+
+    toast.left_motor.run_target(200, -90, toast.Stop.BRAKE, True)
+
+    toast.med_attachment(-5)
+
+    toast.moveInches(-77, 800)
+
+    toast.med_attachment(-5)
+
+    #toast.moveInches(-10, 200, 0)
 
 def Red_Circle_Bridge():
     toast.gyro.reset_angle(0)

@@ -203,8 +203,8 @@ def followLeft(forHowLong):
     maxMotorPower = 1100
     while (totalTime < forHowLong):
         color = colorL.reflection()
-        left = (expectedWhite - color) * powerMultiplier + 25
-        right = (color - expectedBlack) * powerMultiplier + 25
+        left = (expectedWhite - color) * powerMultiplier + 20
+        right = (color - expectedBlack) * powerMultiplier + 20
         right_motor.run(maxMotorPower * (left/100))
         left_motor.run(maxMotorPower * (right/100))
         currentTime = time.time()
@@ -219,20 +219,21 @@ def motorReset():
     med_motor.run_time(11, 10, Stop.BRAKE, True)
 
 def Bridge():
-    med_attachment(30, 1)
+   # med_attachment(30, 1)
     gyro_V.reset_angle(0)
     moveInches(3, 450, 0)
     med_attachment_parallel(-30, 1)
     while gyro_V.angle() > 0:
         left_motor.run(400)
         right_motor.run(400)
+    stopDriveMotors()
 
 def SEQ_Touch():
     brick.sound.beep()
     wait(750)
     brick.display.clear()
-    brick.display.text("Button Up: Medium Motor Up", (10, 55))
-    brick.display.text("Button Down: Medium Motor Down", (10, 65))
+    brick.display.text("Button Up: Med Up", (10, 55))
+    brick.display.text("Button Down: Med Down", (10, 65))
     while True:
         if Button.UP in brick.buttons():
             med_motor.dc(75)
