@@ -145,12 +145,11 @@ def med_attachment_parallel(myAngle, gearbox = 1):
 def gyroDrift():
     brick.display.clear()
     brick.display.text(str(gyro.angle()), (60, 45))
-    brick.display.text(str(gyro_V.angle()),(80, 45))
+    brick.display.text(str(gyro_V.angle()),(100, 45))
     brick.display.text("1) Left: DB and Crane", (10, 55))
     brick.display.text("2) Up: Elevator", (10, 65))
-    brick.display.text("3) Right: Traffic Jam", (10, 75))
-    brick.display.text("4) Down: Innovative Architecture", (10, 85))
-    brick.display.text("5) Center: Bridge", (10, 95))
+    brick.display.text("3) Right: Innovative Architecture", (10, 75))
+    brick.display.text("4) Center: TJ Bridge", (10, 85))
     wait(500)
 
 # This moves the robot FORWARD till the color sensor finds a white line.
@@ -158,7 +157,7 @@ def moveWhite():
     print("moveWhite")
     left_motor.run(135)       
     right_motor.run(135)
-    while colorL.reflection() < 75:
+    while colorL.reflection() < 74:
        pass
     stopDriveMotors()
 
@@ -176,7 +175,7 @@ def moveWhiteB():
     print("moveWhiteB")
     left_motor.run(-135)            
     right_motor.run(-135)
-    while colorL.reflection() < 75:
+    while colorL.reflection() < 74:
        pass
     stopDriveMotors()
 

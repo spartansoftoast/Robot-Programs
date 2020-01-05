@@ -9,33 +9,28 @@ while True:
         toast.gyroDrift()
         pass
 
-    # Third mission Traffic Jam and Swing.
-    if toast.Button.RIGHT in toast.brick.buttons():
-        missions.TJ_Swing()
-        pass
-
     # First mission Design and Build and Crane.
-    elif toast.Button.LEFT in toast.brick.buttons():
+    if toast.Button.LEFT in toast.brick.buttons():
         missions.DB_Crane()
         pass
-
-    # Fourth mission Innovative Architecture.
-    elif toast.Button.DOWN in toast.brick.buttons():
-        missions.Innovative_A()
-        pass
-
+    
     # Second mission Tan Circle and Elevator.
     elif toast.Button.UP in toast.brick.buttons():
         missions.Tan_Elevator()
         pass
 
-    # Fifth mission Red Circle and Bridge.
+    # Third mission Innovative Architecture.
+    elif toast.Button.RIGHT in toast.brick.buttons():
+        missions.Innovative_A()
+        pass
+
+    # Fifth mission Traffic Jam,Red Circle, Swing, and Bridge.
     elif toast.Button.CENTER in toast.brick.buttons():
-        missions.Red_Circle_Bridge()
+        missions.Traffic_Red_Circle_Bridge()
         pass
 
     elif toast.touch.pressed() == True:
         toast.SEQ_Touch()
 
     else:
-        toast.robot.stop(toast.Stop.BRAKE)
+        toast.stopDriveMotors()
