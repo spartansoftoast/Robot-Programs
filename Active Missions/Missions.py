@@ -260,28 +260,54 @@ def Traffic_Red_Circle_Bridge():
 
     toast.followLeft(3.4)
 
+    # This lifts the medium motor so that it can hit the swing.
+
     toast.med_attachment(25)
+
+    # This moves the robot forward toward the swing.
 
     toast.moveInches(6, 400)
 
+    # This turns the robot to hit the post holding the swing.
+
     toast.moveAngle(-8, 200)
+
+    # This hits the post holding the swing.
 
     toast.moveInches(2, 400)
 
+    # This moves the robot out of the swing.
+
     toast.moveInches(-6, 400)
+
+    # This moves the medium motor down for line following.
 
     toast.med_attachment_parallel(-25)
 
+    # This turns the robot to face the line going toward the bridge.
+
     toast.moveAngle(-97.5, 150)
+
+    # This line follows toward the bridge.
 
     toast.followLeft(3.2)
 
+    # This lifts the medium motor so that it does not catch on the bridge.
+
     toast.med_attachment(50)
+
+    # This moves the robot forward toward the bridge because the line ends.
 
     toast.moveInches(3.5, 300)
 
+    # This turns the robot so that it makes it onto the bridge.
+
     toast.moveAngle(-165, 200)
 
+    # This turns the robot again to make sure it is on the bridge.
+
     toast.moveAngle(-130, 200)
+
+    # This calles a function that moves the robot up the bridge until it reaches the top.
 
     toast.Bridge()
