@@ -93,8 +93,6 @@ def Tan_Elevator():
 
     toast.moveAngle(-20, 60, 0)
 
-    toast.wait(250)
-
     # This moves the robot forward to the circle next to the Elevator.
 
     toast.moveInches(40, 400, 0)
@@ -165,11 +163,11 @@ def Tan_Elevator():
 
     # This moves forward to hit the safety factor.
 
-    toast.moveInches(3, 100)
+    toast.moveInches(2.5, 100)
 
     # This moves backward in preparation to hit two more pegs.
 
-    toast.moveInches(-2, 200)
+    toast.moveInches(-1.5, 200)
 
     # This moves the left motor backward so that we can hit the two pegs.
 
@@ -179,7 +177,7 @@ def Tan_Elevator():
 
     # This lowers the medium motor for hitting the pegs.
 
-    toast.med_attachment(-80)
+    toast.med_attachment(-70)
 
     # This moves the robot so that it can hit the pegs.
 
@@ -193,7 +191,7 @@ def Tan_Elevator():
 
     # This makes sure the medium motor hits the pegs.
 
-    toast.med_attachment(-8)
+    toast.med_attachment(-18)
 
     # This moves the robot out of the safety factor.
 
@@ -286,7 +284,7 @@ def Traffic_Red_Circle_Bridge():
 
     # This turns the robot to face the line going toward the bridge.
 
-    toast.moveAngle(-97.5, 150)
+    toast.moveAngle(-95, 150)
 
     # This line follows toward the bridge.
 

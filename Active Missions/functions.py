@@ -52,7 +52,7 @@ def moveInches(myInches, mySpeed, mySteering = 0):
 def moveAngle(myAngle, mySpeed, myType = 0):
     print("moveAngle(" + str(myAngle) + ", " + str(mySpeed) + ", " + str(myType) +")")
     # Adding a wait to see if it fixes the motor issue after a reset
-    wait(100)
+    # wait(100)
     if myType == 1:
         if myAngle > gyro.angle(): # turn Right
             left_motor.dc(mySpeed)     
@@ -231,13 +231,19 @@ def SEQ_Touch():
     brick.sound.beep()
     wait(750)
     brick.display.clear()
-    brick.display.text("Button Up: Med Up", (10, 55))
-    brick.display.text("Button Down: Med Down", (10, 65))
+    brick.display.text("Up: Med Up", (10, 55))
+    brick.display.text("Down: Med Down", (10, 65))
+    brick.display.text("Right: Med Reset Down",(10, 75))
+    brick.display.text("Left: Med Reset Up", (10, 85))
     while True:
         if Button.UP in brick.buttons():
             med_motor.dc(75)
         elif Button.DOWN in brick.buttons():
             med_motor.dc(-75)
+        elif Button.RIGHT in brick.buttons():
+            med_attachment(-95)
+        elif Button.LEFT in brick.buttons():
+            med_attachment(95)
         else:
             med_motor.stop(Stop.BRAKE)
             if touch.pressed() == True:
