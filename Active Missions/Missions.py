@@ -10,7 +10,7 @@ def DB_Crane():
     toast.moveInches(17, 125, 0)
 
     # This makes the robot back away from black circle mentioned above.
-    toast.moveInches(-5, 300, 0) 
+    toast.moveInches(-5, 300, 0)
 
     # Turn robot to the right.
     toast.moveAngle(77, 120, 0)
