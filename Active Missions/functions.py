@@ -32,12 +32,13 @@ gyro_V.reset_angle(0)
 # mySteering tells the robot while moving forward or backward
 # to turn to either the right or the left while moving.
 def moveInches(myInches, mySpeed, mySteering = 0):
+    wheel_circ = 53 #52
     print("moveInches(" + str(myInches) + ", " + str(mySpeed) + ", " + str(mySteering) + ")")
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     print(str(gyro.angle()),str(left_motor.angle()), str(right_motor.angle()))
-    left_motor.run_target(mySpeed, 52*myInches, Stop.COAST, False)
-    right_motor.run_target(mySpeed, 52*myInches, Stop.COAST, True)
+    left_motor.run_target(mySpeed, wheel_circ*myInches, Stop.COAST, False)
+    right_motor.run_target(mySpeed, wheel_circ*myInches, Stop.COAST, True)
     stopDriveMotors()
     print(str(gyro.angle()),str(left_motor.angle()), str(right_motor.angle()))
 
