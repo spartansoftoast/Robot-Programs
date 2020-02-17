@@ -18,5 +18,9 @@ while True:
         med_motor.dc(-75)
     elif Button.UP in brick.buttons():
         med_motor.dc(75)
+    elif Button.RIGHT in brick.buttons():
+        med_motorB.dc(75)
+    elif Button.LEFT in brick.buttons():
+        med_motorB.dc(-75)
     else:
         med_motor.stop(Stop.BRAKE)

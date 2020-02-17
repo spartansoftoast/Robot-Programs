@@ -16,131 +16,178 @@ import time
 left_motor = Motor(Port.B, Direction.CLOCKWISE)
 right_motor = Motor(Port.D, Direction.CLOCKWISE)
 med_motor = Motor(Port.A, Direction.COUNTERCLOCKWISE)
+med_motorB = Motor(Port.C, Direction.CLOCKWISE)
 gyro = GyroSensor(Port.S4)
 gyro_V = GyroSensor(Port.S1)
 colorL = ColorSensor(Port.S2)
 touch = TouchSensor(Port.S3)
 gyro.reset_angle(0)
 gyro_V.reset_angle(0)
-
-# This creates a Drivebase so that if we call "robot" it will move both motors.
-# robot=DriveBase(left_motor, right_motor, 56, 104)
-
 # This function tells the robot to move forward and backward.
 # myInches tells the robot how many inches to move.
-# mySpeed tells the robot how fast to move.
+# mySpeedPercent tells the robot how fast to move.
 # mySteering tells the robot while moving forward or backward
 # to turn to either the right or the left while moving.
-def moveInches(myInches, mySpeed, mySteering = 0):
-    wheel_circ = 53 #52
-    print("moveInches(" + str(myInches) + ", " + str(mySpeed) + ", " + str(mySteering) + ")")
+
+def moveInches(myInches, mySpeedPercent = 75):
+    wheel_circ = 52
+    speed = 10.5 * mySpeedPercent
+    print("moveInches(" + str(myInches) + ", " + str(mySpeedPercent))
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     print(str(gyro.angle()),str(left_motor.angle()), str(right_motor.angle()))
-    left_motor.run_target(mySpeed, wheel_circ*myInches, Stop.COAST, False)
-    right_motor.run_target(mySpeed, wheel_circ*myInches, Stop.COAST, True)
+    left_motor.run_target(speed, wheel_circ*myInches, Stop.COAST, False)
+    right_motor.run_target(speed, wheel_circ*myInches, Stop.COAST, True)
     stopDriveMotors()
     print(str(gyro.angle()),str(left_motor.angle()), str(right_motor.angle()))
 
     # Print debug (52*myInches vs actualAngle)
 
 
+def pivotTurn(myAngle, mySpeedPercent, whichWheel):
+    speed = 10.5 * mySpeedPercent
+    if myAngle > gyro.angle() and whichWheel == 1:  # Turn Right
+        left_motor.run(speed)
+        while gyro.angle() <= myAngle:
+            pass
+        print("End Turn" + str(gyro.angle()))
+        stopDriveMotors()
+
+    elif myAngle > gyro.angle() and whichWheel == 2:  # Turn Right
+        right_motor.run(-1 * speed)
+        while gyro.angle() <= myAngle:
+            pass
+        print("End Turn" + str(gyro.angle()))
+        stopDriveMotors()
+
+    elif myAngle < gyro.angle() and whichWheel == 2:  # Turn Left
+        right_motor.run(speed)
+        while gyro.angle() >= myAngle:
+            pass
+        print("End Turn" + str(gyro.angle()))
+        stopDriveMotors()
+
+    elif myAngle < gyro.angle() and whichWheel == 1:  # Turn Left
+        left_motor.run(-1 * speed)
+        while gyro.angle() >= myAngle:
+            pass
+        print("End Turn" + str(gyro.angle()))
+        stopDriveMotors()
+
+    else:
+        pass
+
+def spinTurn(myAngle, mySpeedPercent):
+    if myAngle > gyro.angle(): # turn Right
+        left_motor.dc(mySpeedPercent)     
+        right_motor.dc(-1*mySpeedPercent)
+        while gyro.angle() <= myAngle: # and gyro.speed() > 5:
+            pass
+        print("End Turn" + str(gyro.angle()))
+        stopDriveMotors()
+
+    elif myAngle < gyro.angle(): # turn Left
+        left_motor.dc(-1*mySpeedPercent)            
+        right_motor.dc(mySpeedPercent)
+        while gyro.angle() >= myAngle: # and gyro.speed() < -5:
+            pass
+        print("End Turn" + str(gyro.angle()))
+        stopDriveMotors()
+
 
 # This makes the robot turn right or left.
 # myAngle tells the robot how many degrees to turn.
 # mySpeed tells the robot how fast to turn.
 # myType tells the robot to do either 1=spin turn or 0=pivot turn.
-def moveAngle(myAngle, mySpeed, myType = 0):
-    print("moveAngle(" + str(myAngle) + ", " + str(mySpeed) + ", " + str(myType) +")")
+def moveAngle(myAngle, mySpeedPercent, myType):
+    acceptableError = 2
+    print("moveAngle(" + str(myAngle) + ", " + str(mySpeedPercent) + ", " + str(myType) +")")
+
+    leftWheel = 1
+    rightWheel = 2
+
     # Adding a wait to see if it fixes the motor issue after a reset
     # wait(100)
-    if myType == 1:
-        if myAngle > gyro.angle(): # turn Right
-            left_motor.dc(mySpeed)     
-            right_motor.dc(-1*mySpeed)
-            while gyro.angle() < myAngle: # and gyro.speed() > 5:
-                pass
-            print("End Turn" + str(gyro.angle()))
-            stopDriveMotors()
+    if myType == 0:
+        spinTurn(myAngle, mySpeedPercent)
 
-        elif myAngle < gyro.angle(): # turn Left
-            left_motor.dc(-1*mySpeed)            
-            right_motor.dc(mySpeed)
-            while gyro.angle() > myAngle: # and gyro.speed() < -5:
-                pass
-            print("End Turn" + str(gyro.angle()))
-            stopDriveMotors()
+    elif myType == 1:
+        pivotTurn(myAngle, mySpeedPercent, leftWheel)
 
-        else:
-            stopDriveMotors()
-            pass
-    elif myType == 0:
-        if myAngle > gyro.angle():  # Turn Right
-            left_motor.run(mySpeed)
-            while gyro.angle() < myAngle:
-                pass
-            print("End Turn" + str(gyro.angle()))
-            stopDriveMotors()
-
-            # Print debug (myAngle vs actualAngle)
-
-        elif myAngle < gyro.angle():  # Turn Left
-            right_motor.run(mySpeed)
-            while gyro.angle() > myAngle:
-                pass
-            print("End Turn" + str(gyro.angle()))
-            stopDriveMotors()
-
-            # Print debug (myAngle vs actualAngle)
-        
-        else:
-            stopDriveMotors()
-            pass
-    
+    elif myType == 2:
+        pivotTurn(myAngle, mySpeedPercent, rightWheel)
+    stopDriveMotors()
     print("End moveAngle" + str(gyro.angle()))
+
+    error = abs(myAngle - gyro.angle())
+    if error > acceptableError:
+        moveAngle(myAngle, mySpeedPercent * .25, myType)
+    else:
+        # We are happy
+        pass
 
 
 # This tells the medium motor to move either up or down.
 # myAngle tells the medium motor how many degrees to either go up or down.
 # gearbox tells the medium motor whether or not to use a ratio, used for the gearbox.
-def med_attachment(myAngle, gearbox = 1):
+def med_attachment(myAngle):
     print("med_attachment")
-    med_motor.reset_angle(0)
+    print("myAngle: " + str(myAngle))
     print(str(med_motor.angle()))
-    if gearbox == 1:
-        if myAngle < 0:
-            med_motor.run(-1200)
-            while med_motor.angle() > myAngle * 24:
-                pass
-            med_motor.stop(Stop.BRAKE)
-            # The motor can go faster because it takes many rotations to move a little bit using the gearbox,
-            # so we can go faster and it will still check enough to make it accurate.
-        elif myAngle > 0:
-            med_motor.run(1200)
-            while med_motor.angle() < myAngle * 24:
-                pass
-            med_motor.stop(Stop.BRAKE)
 
-    if gearbox == 0:
-        if myAngle < 0:
-            med_motor.run(-360)
-            while med_motor.angle() > myAngle:
-                pass
-            med_motor.stop(Stop.BRAKE)
-            # We chose the slower speed so that the medium motor will have more time to check the angle.
-        elif myAngle > 0:
-            med_motor.run(360)
-            while med_motor.angle() < myAngle:
-                pass
-            med_motor.stop(Stop.BRAKE)
+    if myAngle * 24 < med_motor.angle():
+        med_motor.run(-1200)
+        while med_motor.angle() > myAngle * 24:
+            pass
+        med_motor.stop(Stop.BRAKE)
+        # The motor can go faster because it takes many rotations to move a little bit using the gearbox,
+        # so we can go faster and it will still check enough to make it accurate.
+    elif myAngle * 24 > med_motor.angle():
+        med_motor.run(1200)
+        while med_motor.angle() < myAngle * 24:
+            pass
+        med_motor.stop(Stop.BRAKE)
     print("med" + str(med_motor.angle()))
     med_motor.stop(Stop.BRAKE)  # Just in case the medium motor does not stop (micropython issue)
 
+def med_attachmentB_parallel(myAngle):
+    print("med_attachmentB_parallel")
+    medThreadB = threading.Thread(target=med_attachmentB, args=(myAngle))
+    medThreadB.start()
+
+def med_attachmentB(myAngle):
+    print("med_attachmentB")
+    print(str(med_motorB.angle()))
+    if myAngle * 24 < med_motorB.angle():
+        med_motorB.run(-1200)
+        while med_motorB.angle() > myAngle * 24:
+            pass
+        med_motorB.stop(Stop.BRAKE)
+        # The motor can go faster because it takes many rotations to move a little bit using the gearbox,
+        # so we can go faster and it will still check enough to make it accurate.
+    elif myAngle * 24 > med_motorB.angle():
+        med_motorB.run(1200)
+        while med_motorB.angle() < myAngle * 24:
+            pass
+        med_motorB.stop(Stop.BRAKE)
+    print("med" + str(med_motorB.angle()))
+    med_motorB.stop(Stop.BRAKE)  # Just in case the medium motor does not stop (micropython issue)
 # This runs med_attachment in a thread so that commands can run while the leverator changes position
-def med_attachment_parallel(myAngle, gearbox = 1):
+
+def med_attachment_parallel(myAngle):
     print("med_attachment_parallel")
-    medThread = threading.Thread(target=med_attachment, args=(myAngle,gearbox))
-    medThread.start()
+    try:
+       # medThread = threading.Thread(med_attachment, myAngle)
+        medThread = threading.Thread(target=med_attachment, args=(myAngle))
+        medThread.start()
+    except NameError:
+        print("NameError")
+    except Exception:
+        print("Exception")
+    else:
+        print("Nothing Went Wrong")
+    finally:
+        print("finally triggered")
 
 # This displays the gyro degrees on the robot screen.
 def gyroDrift():
@@ -221,8 +268,8 @@ def motorReset():
 def Bridge():
    # med_attachment(30, 1)
     gyro_V.reset_angle(0)
-    moveInches(3, 450, 0)
-    med_attachment_parallel(-30, 1)
+    moveInches(3, 50)
+    #med_attachment_parallel(20)
     while gyro_V.angle() > 0:
         left_motor.run(400)
         right_motor.run(400)
@@ -234,19 +281,26 @@ def SEQ_Touch():
     brick.display.clear()
     brick.display.text("Up: Med Up", (10, 55))
     brick.display.text("Down: Med Down", (10, 65))
-    brick.display.text("Right: Med Reset Down",(10, 75))
-    brick.display.text("Left: Med Reset Up", (10, 85))
+    brick.display.text("Right: MedB Up",(10, 75))
+    brick.display.text("Left: MedB Down", (10, 85))
+    brick.display.text("Center: Set Med zero")
     while True:
         if Button.UP in brick.buttons():
             med_motor.dc(75)
         elif Button.DOWN in brick.buttons():
             med_motor.dc(-75)
         elif Button.RIGHT in brick.buttons():
-            med_attachment(-95)
+            med_motorB.dc(75)
         elif Button.LEFT in brick.buttons():
-            med_attachment(95)
+            med_motorB.dc(-75)
+        elif Button.CENTER in brick.buttons():
+            med_motor.reset_angle(0)
+            med_motorB.reset_angle(0)
+            brick.sound.beep()
+            wait(500)
         else:
             med_motor.stop(Stop.BRAKE)
+            med_motorB.stop(Stop.BRAKE)
             if touch.pressed() == True:
                 brick.sound.beep()
                 wait(750)

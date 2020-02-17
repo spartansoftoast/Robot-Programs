@@ -4,7 +4,18 @@ import functions as toast
 # 25% is 262.5
 # 50% is 525
 # 75% is 787.5
-toast.moveInches(12, 787.5)
+
+
+
+
+
+
+
+
+
+
+# Old robot testing:
+
 # six inches at 25% was 1/16 off
 # six inches at 25% was 3/32 off
 # six inches at 25% was 1/16 off
@@ -59,3 +70,6 @@ toast.moveInches(12, 787.5)
 
 # twelve inches at 25% was perfect
 # twelve inches at 75% was curved but pretty good.
+
+
+
