@@ -8,19 +8,15 @@ from pybricks.parameters import (Port, Stop, Direction, Button, Color,
 from pybricks.tools import print, wait, StopWatch
 from pybricks.robotics import DriveBase
 
-med_motor = Motor(Port.A, Direction.COUNTERCLOCKWISE)
+med_motor = Motor(Port.A, Direction.CLOCKWISE)
 
 # This makes the medium motor attachment move up when the up button is pushed
 # and move down when the down button is pushed.
 
 while True:
     if Button.DOWN in brick.buttons():
-        med_motor.dc(-75)
+        med_motor.dc(-100)
     elif Button.UP in brick.buttons():
-        med_motor.dc(75)
-    elif Button.RIGHT in brick.buttons():
-        med_motorB.dc(75)
-    elif Button.LEFT in brick.buttons():
-        med_motorB.dc(-75)
+        med_motor.dc(100)
     else:
         med_motor.stop(Stop.BRAKE)

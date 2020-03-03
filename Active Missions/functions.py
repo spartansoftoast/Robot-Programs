@@ -10,13 +10,13 @@ from pybricks.parameters import (Port, Stop, Direction, Button, Color,
 from pybricks.tools import print, wait, StopWatch
 from pybricks.robotics import DriveBase
 import threading
+from multiprocessing import Process
 import time
 
 # This tells the brick where we have the motors and sensors plugged in.
-left_motor = Motor(Port.B, Direction.CLOCKWISE)
-right_motor = Motor(Port.D, Direction.CLOCKWISE)
-med_motor = Motor(Port.A, Direction.COUNTERCLOCKWISE)
-med_motorB = Motor(Port.C, Direction.CLOCKWISE)
+left_motor = Motor(Port.D, Direction.CLOCKWISE)
+right_motor = Motor(Port.B, Direction.CLOCKWISE)
+med_motor = Motor(Port.A, Direction.CLOCKWISE)
 gyro = GyroSensor(Port.S4)
 gyro_V = GyroSensor(Port.S1)
 colorL = ColorSensor(Port.S2)
@@ -32,7 +32,7 @@ gyro_V.reset_angle(0)
 def moveInches(myInches, mySpeedPercent = 75):
     wheel_circ = 52
     speed = 10.5 * mySpeedPercent
-    print("moveInches(" + str(myInches) + ", " + str(mySpeedPercent))
+    print("moveInches(" + str(myInches) + ", " + str(mySpeedPercent) + ")")
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     print(str(gyro.angle()),str(left_motor.angle()), str(right_motor.angle()))
@@ -132,62 +132,25 @@ def moveAngle(myAngle, mySpeedPercent, myType):
 # gearbox tells the medium motor whether or not to use a ratio, used for the gearbox.
 def med_attachment(myAngle):
     print("med_attachment")
-    print("myAngle: " + str(myAngle))
-    print(str(med_motor.angle()))
+    #print("myAngle: " + str(myAngle))
+    #print(str(med_motor.angle()))
 
     if myAngle * 24 < med_motor.angle():
-        med_motor.run(-1200)
-        while med_motor.angle() > myAngle * 24:
+        med_motor.dc(-100)
+        while med_motor.angle() >= myAngle * 24:
             pass
         med_motor.stop(Stop.BRAKE)
-        # The motor can go faster because it takes many rotations to move a little bit using the gearbox,
-        # so we can go faster and it will still check enough to make it accurate.
+    # The motor can go faster because it takes many rotations to move a little bit using the gearbox,
+    # so we can go faster and it will still check enough to make it accurate.
     elif myAngle * 24 > med_motor.angle():
-        med_motor.run(1200)
-        while med_motor.angle() < myAngle * 24:
+        med_motor.dc(100)
+        while med_motor.angle() <= myAngle * 24:
             pass
         med_motor.stop(Stop.BRAKE)
-    print("med" + str(med_motor.angle()))
+    #print("med" + str(med_motor.angle()))
     med_motor.stop(Stop.BRAKE)  # Just in case the medium motor does not stop (micropython issue)
 
-def med_attachmentB_parallel(myAngle):
-    print("med_attachmentB_parallel")
-    medThreadB = threading.Thread(target=med_attachmentB, args=(myAngle))
-    medThreadB.start()
 
-def med_attachmentB(myAngle):
-    print("med_attachmentB")
-    print(str(med_motorB.angle()))
-    if myAngle * 24 < med_motorB.angle():
-        med_motorB.run(-1200)
-        while med_motorB.angle() > myAngle * 24:
-            pass
-        med_motorB.stop(Stop.BRAKE)
-        # The motor can go faster because it takes many rotations to move a little bit using the gearbox,
-        # so we can go faster and it will still check enough to make it accurate.
-    elif myAngle * 24 > med_motorB.angle():
-        med_motorB.run(1200)
-        while med_motorB.angle() < myAngle * 24:
-            pass
-        med_motorB.stop(Stop.BRAKE)
-    print("med" + str(med_motorB.angle()))
-    med_motorB.stop(Stop.BRAKE)  # Just in case the medium motor does not stop (micropython issue)
-# This runs med_attachment in a thread so that commands can run while the leverator changes position
-
-def med_attachment_parallel(myAngle):
-    print("med_attachment_parallel")
-    try:
-       # medThread = threading.Thread(med_attachment, myAngle)
-        medThread = threading.Thread(target=med_attachment, args=(myAngle))
-        medThread.start()
-    except NameError:
-        print("NameError")
-    except Exception:
-        print("Exception")
-    else:
-        print("Nothing Went Wrong")
-    finally:
-        print("finally triggered")
 
 # This displays the gyro degrees on the robot screen.
 def gyroDrift():
@@ -281,26 +244,18 @@ def SEQ_Touch():
     brick.display.clear()
     brick.display.text("Up: Med Up", (10, 55))
     brick.display.text("Down: Med Down", (10, 65))
-    brick.display.text("Right: MedB Up",(10, 75))
-    brick.display.text("Left: MedB Down", (10, 85))
     brick.display.text("Center: Set Med zero")
     while True:
         if Button.UP in brick.buttons():
             med_motor.dc(75)
         elif Button.DOWN in brick.buttons():
             med_motor.dc(-75)
-        elif Button.RIGHT in brick.buttons():
-            med_motorB.dc(75)
-        elif Button.LEFT in brick.buttons():
-            med_motorB.dc(-75)
         elif Button.CENTER in brick.buttons():
             med_motor.reset_angle(0)
-            med_motorB.reset_angle(0)
             brick.sound.beep()
             wait(500)
         else:
             med_motor.stop(Stop.BRAKE)
-            med_motorB.stop(Stop.BRAKE)
             if touch.pressed() == True:
                 brick.sound.beep()
                 wait(750)

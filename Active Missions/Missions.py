@@ -13,7 +13,7 @@ def DB_Crane():
     toast.moveInches(-3, 25)
 
     # Turn robot to the right.
-    toast.moveAngle(-135, 40, 1)
+    toast.moveAngle(-135, 70, 1)
 
     # This makes the robot move toward the crane.
     toast.moveInches(-17, 20)
@@ -22,7 +22,7 @@ def DB_Crane():
 
     # This turns the robot torward the crane.
     toast.med_attachmentB(90)
-    toast.moveAngle(-90, 40, 1)
+    toast.moveAngle(-90, 70, 1)
 
     # This reliably gets to the position needed to lift the crane lever.
 
@@ -36,7 +36,7 @@ def DB_Crane():
 
     # This turns the robot to face near the base.
 
-    toast.moveAngle(-150, 50, 1)
+    toast.moveAngle(-150, 70, 1)
 
     # This moves the robot in position to make it into the base.
 
@@ -196,24 +196,46 @@ def Traffic_Red_Circle_Bridge():
     toast.gyro.reset_angle(0)
     toast.brick.sound.beep()
     toast.wait(750)
-    toast.med_attachmentB(100)
+
     # This moves the robot forward to lift the traffic jam.
-    toast.moveAngle(-20, 20, 2)
-    toast.moveInches(25, 40)
-    toast.moveInches(-5, 20)
-    toast.moveAngle(-120, 20, 2)
-    toast.med_attachmentB(0)
-    toast.moveInches(-3, 20)
+
+    toast.moveInches(22, 50)
+
     # This lifts the traffic jam.
 
-    toast.med_attachmentB(40)
-    toast.moveInches(-2, 20)
-    toast.moveInches(2, 20)
+    toast.med_attachment(40)
+
     # This makes sure the traffic jam is lifted.
+
+    toast.moveAngle(20, 40, 1)
+
+    # This send the medium motor down to catch the red block.
+
+    toast.med_attachment(10)
+
+    # This turns the robot to face the red circle.
+
+    toast.moveAngle(-55, 20, 2)
+
+    # This lifts the medium motor so that it does not drag the block out of the circle.
+
+    toast.med_attachment(30)
+
+    # This pushes the red block into the red circle.
+
+    toast.moveInches(5, 80)
+
+    # This brings the medium motor down to catch the white line.
+
+    toast.med_attachment(0)
+
+    # This moves the robot backward toward the white line.
+
+    toast.moveWhiteB()
 
     # This lines the robot up with the line for line following.
 
-    toast.moveAngle(0, 20, 2)
+    toast.moveAngle(0, 20, 1)
 
     # This line follows toward the swing.
 
@@ -221,31 +243,31 @@ def Traffic_Red_Circle_Bridge():
 
     # This lifts the medium motor so that it can hit the swing.
 
-    toast.med_attachmentB(25)
+    toast.med_attachment(25)
 
     # This moves the robot forward toward the swing.
 
-    toast.moveInches(-6, 40)
+    toast.moveInches(6, 400)
 
     # This turns the robot to hit the post holding the swing.
 
-    toast.moveAngle(-8, 20)
+    toast.moveAngle(-8, 20, 2)
 
     # This hits the post holding the swing.
 
-    toast.moveInches(-2, 40)
+    toast.moveInches(2, 40)
 
     # This moves the robot out of the swing.
 
-    toast.moveInches(6, 40)
+    toast.moveInches(-6, 40)
 
     # This moves the medium motor down for line following.
 
-    toast.med_attachmentB_parallel(0)
+    toast.med_attachment(0)
 
     # This turns the robot to face the line going toward the bridge.
 
-    toast.moveAngle(-95, 10)
+    toast.moveAngle(-95, 15, 2)
 
     # This line follows toward the bridge.
 
@@ -261,14 +283,12 @@ def Traffic_Red_Circle_Bridge():
 
     # This turns the robot so that it makes it onto the bridge.
 
-    toast.moveAngle(-165, 20)
+    toast.moveAngle(-165, 20, 2)
 
     # This turns the robot again to make sure it is on the bridge.
 
-    toast.moveAngle(-130, 20)
+    toast.moveAngle(-130, 20, 1)
 
     # This calles a function that moves the robot up the bridge until it reaches the top.
 
     toast.Bridge()
-
-
