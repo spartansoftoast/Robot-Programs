@@ -1,73 +1,8 @@
 #!/usr/bin/env pybricks-micropython
 import functions as toast
 
-def DB_Crane():
-    toast.gyro.reset_angle(0)
-    toast.brick.sound.beep()
-    toast.wait(500)
 
-    # This makes the robot deliver the units to the black circle near the crane.
-    toast.moveInches(15, 10)
-
-    # This makes the robot back away from black circle mentioned above.
-    toast.moveInches(-3, 25)
-
-    # Turn robot to the right.
-    toast.moveAngle(-135, 70, 1)
-
-    # This makes the robot move toward the crane.
-    toast.moveInches(-17, 20)
-
-    toast.med_attachmentB(0)
-
-    # This turns the robot torward the crane.
-    toast.med_attachmentB(90)
-    toast.moveAngle(-90, 70, 1)
-
-    # This reliably gets to the position needed to lift the crane lever.
-
-    toast.moveInches(3, 30)
-
-    # This lifts the crane lever.
-    toast.med_attachment(50)
-
-    # This moves the robot back.
-    toast.moveInches(-2, 35)
-
-    # This turns the robot to face near the base.
-
-    toast.moveAngle(-150, 70, 1)
-
-    # This moves the robot in position to make it into the base.
-
-    toast.moveInches(30, 60)
-
-def Innovative_A():
-    toast.gyro.reset_angle(0)
-    toast.brick.sound.beep()
-    toast.wait(750)
-
-    # This turns the robot to face the black circle near the tree.
-
-    toast.moveAngle(-40, 200, 0)
-
-    # This pushes the Innovative Architecture into the circle.
-
-    toast.moveInches(16, 350, 0)
-
-    # This moves the robot backward away from the Innovative Architecture.
-
-    toast.moveInches(-8, 350, 0)
-
-    # This turns the robot to the right, so that it is facing into base.
-
-    toast.moveAngle(10, 500, 0)
-
-    # This moves the robot into base.
-
-    toast.moveInches(-27, 1100, 0)
-
-def Tan_Elevator():
+def Big_Boy_Drone_Bat():
     toast.gyro.reset_angle(0)
     toast.brick.sound.beep()
     toast.wait(750)
@@ -199,19 +134,15 @@ def Traffic_Red_Circle_Bridge():
 
     # This moves the robot forward to lift the traffic jam.
 
-    toast.moveInches(22, 50)
+    toast.moveInches(18, 50)
 
     # This lifts the traffic jam.
 
-    toast.med_attachment(40)
-
-    # This makes sure the traffic jam is lifted.
-
-    toast.moveAngle(20, 40, 1)
+    toast.med_attachment(30)
 
     # This send the medium motor down to catch the red block.
 
-    toast.med_attachment(10)
+    toast.med_attachment(0)
 
     # This turns the robot to face the red circle.
 
@@ -224,10 +155,6 @@ def Traffic_Red_Circle_Bridge():
     # This pushes the red block into the red circle.
 
     toast.moveInches(5, 80)
-
-    # This brings the medium motor down to catch the white line.
-
-    toast.med_attachment(0)
 
     # This moves the robot backward toward the white line.
 
@@ -292,3 +219,12 @@ def Traffic_Red_Circle_Bridge():
     # This calles a function that moves the robot up the bridge until it reaches the top.
 
     toast.Bridge()
+
+def Crane():
+  toast.medium_motor_down(-130, 0)
+  toast.moveInches(24, 40)
+  toast.moveInches(-10)
+  toast.spinTurn(50, 30)
+  toast.moveInches(5)
+  toast.spinTurn(-50, 30)
+

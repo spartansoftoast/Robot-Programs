@@ -9,23 +9,18 @@ while True:
         toast.gyroDrift()
         pass
 
-    # First mission Design and Build and Crane.
+    # First mission Crane.
     if toast.Button.LEFT in toast.brick.buttons():
-        missions.DB_Crane()
+        missions.Crane()
         pass
     
     # Second mission Tan Circle and Elevator.
-    elif toast.Button.UP in toast.brick.buttons():
-        missions.Tan_Elevator()
+    elif toast.Button.Center in toast.brick.buttons():
+        missions.Big_Boy_Drone_Bat()
         pass
 
     # Third mission Innovative Architecture.
     elif toast.Button.RIGHT in toast.brick.buttons():
-        missions.Innovative_A()
-        pass
-
-    # Fifth mission Traffic Jam,Red Circle, Swing, and Bridge.
-    elif toast.Button.CENTER in toast.brick.buttons():
         missions.Traffic_Red_Circle_Bridge()
         pass
 

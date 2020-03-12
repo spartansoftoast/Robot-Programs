@@ -4,10 +4,13 @@ import functions as toast
 # 25% is 262.5
 # 50% is 525
 # 75% is 787.5
-medProcess = toast.Process(target=toast.med_attachment, args=(-45,))
-medProcess.start()
-toast.moveInches(20)
-medProcess.join()
+
+
+
+# medProcess = toast.Process(target=toast.med_attachment, args=(-45,))
+# medProcess.start()
+# toast.moveInches(20)
+# medProcess.join()
 
 
 

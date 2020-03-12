@@ -1,0 +1,15 @@
+#!/usr/bin/env pybricks-micropython
+import functions as toast # import the functions we created to help mission programmers
+toast.medium_motor_down(-130, 0, 100)
+toast.moveInches(24.5, 45)
+toast.moveInches(-14, 50)
+toast.moveAngle(90, 20, 1)
+toast.moveInches(4, 45)
+toast.medium_motor_up(-50, 0, 100)
+toast.moveAngle(0, 20, 2)
+toast.moveWhite()
+toast.moveBlack()
+toast.moveWhite()
+toast.moveInches(1, 15)
+toast.medium_motor_down(-105, 0, 100)
+toast.moveInches(-9, 30)
