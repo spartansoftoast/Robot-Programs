@@ -132,27 +132,41 @@ def Traffic_Red_Circle_Bridge():
     toast.brick.sound.beep()
     toast.wait(750)
 
+    toast.med_attachment(0)
+    toast.moveAngle(-20, 20, 2)
+
     # This moves the robot forward to lift the traffic jam.
 
-    toast.moveInches(18, 50)
+    toast.moveInches(25, 50)
 
-    # This lifts the traffic jam.
+    toast.moveInches(-10, 50)
 
+    toast.moveAngle(-90, 40, 1)
+
+    toast.moveInches(-5)
+
+    toast.moveAngle(-5, 40, 1)
+
+    toast.moveInches(6)
     toast.med_attachment(30)
-
-    # This send the medium motor down to catch the red block.
-
-    toast.med_attachment(0)
-
+    toast.pivotTurn(5, 20, 1)
+    toast.pivotTurn(-10, 20, 1)
+    toast.moveWhite()
+    toast.followLeft(4)
+    toast.moveInches(6)
+    toast.med_attachment(40)
+    toast.moveInches(3)
+    toast.moveWhiteB()
+    toast.moveAngle(-25, 40, 2)
+    toast.moveInches(12)
+    toast.moveAngle(-90, 20, 2)
+    toast.moveInches(2)
+    toast.moveInches(-4)
+    toast.moveAngle(-90, 40, 2)
+    toast.moveInches(8)
     # This turns the robot to face the red circle.
+    toast.wait(1000000)
 
-    toast.moveAngle(-55, 20, 2)
-
-    # This lifts the medium motor so that it does not drag the block out of the circle.
-
-    toast.med_attachment(30)
-
-    # This pushes the red block into the red circle.
 
     toast.moveInches(5, 80)
 

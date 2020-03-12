@@ -15,7 +15,7 @@ while True:
         pass
     
     # Second mission Tan Circle and Elevator.
-    elif toast.Button.Center in toast.brick.buttons():
+    elif toast.Button.CENTER in toast.brick.buttons():
         missions.Big_Boy_Drone_Bat()
         pass
 

@@ -28,7 +28,7 @@ gyro_V.reset_angle(0)
 # This function tells the robot to move forward and backward.
 # myInches tells the robot how many inches to move.
 # mySpeedPercent tells the robot how fast to move in percent.
-def moveInches(myInches, mySpeedPercent = 75):
+def moveInches(myInches, mySpeedPercent = 50):
     wheel_circ = 52
     speed = 10.5 * mySpeedPercent
     print("moveInches(" + str(myInches) + ", " + str(mySpeedPercent) + ")")
@@ -275,9 +275,9 @@ def SEQ_Touch():
         elif Button.RIGHT in brick.buttons():
             colorMed(0)
         elif Button.UP in brick.buttons():
-            med_motor.dc(75)
+            med_motor.dc(100)
         elif Button.DOWN in brick.buttons():
-            med_motor.dc(-75)
+            med_motor.dc(-100)
         elif Button.CENTER in brick.buttons():
             med_motor.reset_angle(0)
             med_motorB.reset_angle(0)
